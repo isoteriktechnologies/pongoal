@@ -65,25 +65,25 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="19" x="94.6667" y="9.66663" width="64" height="64">
+  <object id="19" x="93.3334" y="15.6666" width="42.6667" height="48">
    <properties>
     <property name="name" value="top_post_light_left"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="21" x="93" y="887" width="64" height="64">
+  <object id="21" x="92" y="909" width="42.67" height="48">
    <properties>
     <property name="name" value="bottom_post_light_left"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="20" x="563" y="6.3333" width="64" height="64">
+  <object id="20" x="570" y="14.3333" width="42.67" height="48">
    <properties>
     <property name="name" value="top_post_light_right"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="22" x="563.333" y="886.666" width="64" height="64">
+  <object id="22" x="568.333" y="907.666" width="42.67" height="48">
    <properties>
     <property name="name" value="bottom_post_light_right"/>
    </properties>

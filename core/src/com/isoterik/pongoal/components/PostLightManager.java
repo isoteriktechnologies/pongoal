@@ -1,4 +1,4 @@
-package com.isoterik.pongoal;
+package com.isoterik.pongoal.components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,7 +14,7 @@ public class PostLightManager extends Component {
     private GameObject leftLight, rightLight;
     private PostPosition postPosition;
 
-    private Array<TextureRegion> topLights, bottomLights;
+    private Array<TextureRegion> leftLights, rightLights;
     private FrameAnimation leftAnimation, rightAnimation;
 
     public enum PostPosition {
@@ -26,27 +26,31 @@ public class PostLightManager extends Component {
         this.rightLight = rightLight;
         this.postPosition = postPosition;
 
-        topLights = new Array<>();
-        bottomLights = new Array<>();
+        leftLights = new Array<>();
+        rightLights = new Array<>();
 
         Texture lightTexture = Racken.instance().assets.getTexture("goal_posts_lights.png");
         TextureRegion[][] lights = TextureRegion.split(lightTexture, 64, 64);
 
-        for (int i = 0; i < lights[0].length; i ++)
-            topLights.add(lights[0][i]);
+        if (postPosition == PostPosition.Top) {
+            for (int i = 0; i < lights[0].length; i ++)
+                leftLights.add(lights[0][i]);
 
-        for (int i = 0; i < lights[3].length; i++)
-            bottomLights.add(lights[3][i]);
+            for (int i = 0; i < lights[2].length; i++)
+                rightLights.add(lights[2][i]);
+        } else {
+            for (int i = 0; i < lights[1].length; i ++)
+                leftLights.add(lights[1][i]);
 
-        Array<TextureRegion> animationFrames = topLights;
-        if (postPosition == PostPosition.Bottom)
-            animationFrames = bottomLights;
+            for (int i = 0; i < lights[3].length; i++)
+                rightLights.add(lights[3][i]);
+        }
 
-        leftAnimation = new FrameAnimation(animationFrames, .05f);
-        rightAnimation = new FrameAnimation(animationFrames, .05f);
-        leftLight.addComponent(new SpriteRenderer(animationFrames.first(), gameWorldUnits));
+        leftAnimation = new FrameAnimation(leftLights, .05f);
+        rightAnimation = new FrameAnimation(rightLights, .05f);
+        leftLight.addComponent(new SpriteRenderer(leftLights.first(), gameWorldUnits));
         leftLight.addComponent(leftAnimation);
-        rightLight.addComponent(new SpriteRenderer(animationFrames.first(), gameWorldUnits));
+        rightLight.addComponent(new SpriteRenderer(rightLights.first(), gameWorldUnits));
         rightLight.addComponent(rightAnimation);
     }
 }
