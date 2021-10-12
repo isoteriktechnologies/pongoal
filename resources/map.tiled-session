@@ -1,0 +1,45 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 0.5
+        },
+        "/home/isoterik/Documents/Gaming/pongoal/android/assets/map/map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 325.3333333333333,
+                "y": 507.99999999999994
+            }
+        },
+        "/home/isoterik/Documents/Gaming/pongoal/android/assets/map/map.tmx#pause": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/isoterik/Documents/Gaming/pongoal/android/assets/map/map.tmx#post": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "/home/isoterik/Documents/Gaming/pongoal/android/assets/map/map.tmx#post_top": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "/home/isoterik/Documents/Gaming/pongoal/android/assets/map",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+    ],
+    "project": "",
+    "property.type": "string",
+    "recentFiles": [
+        "/home/isoterik/Documents/Gaming/pongoal/android/assets/map/map.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 135,
+        "width": 615
+    }
+}

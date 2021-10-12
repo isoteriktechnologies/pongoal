@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="25">
+ <tileset firstgid="1" name="post" tilewidth="615" tileheight="135" tilecount="1" columns="1">
+  <properties>
+   <property name="flippedY" type="bool" value="false"/>
+  </properties>
+  <image source="goal_post.png" width="615" height="135"/>
+ </tileset>
+ <tileset firstgid="2" name="pause" tilewidth="560" tileheight="344" tilecount="1" columns="1">
+  <image source="court_center_btn_pause_vertical.png" width="560" height="344"/>
+ </tileset>
+ <tileset firstgid="3" name="post_top" tilewidth="615" tileheight="135" tilecount="1" columns="1">
+  <image source="goal_post_top.png" width="615" height="135"/>
+ </tileset>
+ <imagelayer id="3" name="BG Layer">
+  <image source="court.png" width="720" height="960"/>
+ </imagelayer>
+ <layer id="1" name="Tile Layer" width="15" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer">
+  <object id="1" gid="2" x="129.333" y="626.667" width="466.667" height="290.667">
+   <properties>
+    <property name="name" value="center_line"/>
+   </properties>
+  </object>
+  <object id="16" gid="1" x="102" y="956.667" width="519" height="99">
+   <properties>
+    <property name="name" value="post"/>
+    <property name="position" value="bottom"/>
+   </properties>
+  </object>
+  <object id="17" gid="3" x="103.667" y="102.667" width="519" height="99">
+   <properties>
+    <property name="name" value="post"/>
+    <property name="position" value="top"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Object Layer 2">
+  <object id="18" x="331.333" y="447.667" width="62.6667" height="65.3333">
+   <properties>
+    <property name="name" value="pause"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="19" x="94.6667" y="9.66663" width="64" height="64">
+   <properties>
+    <property name="name" value="top_post_light_left"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="21" x="93" y="887" width="64" height="64">
+   <properties>
+    <property name="name" value="bottom_post_light_left"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="20" x="563" y="6.3333" width="64" height="64">
+   <properties>
+    <property name="name" value="top_post_light_right"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="22" x="563.333" y="886.666" width="64" height="64">
+   <properties>
+    <property name="name" value="bottom_post_light_right"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="23" x="320" y="10.6667" width="92" height="56">
+   <properties>
+    <property name="name" value="top_post_score_board"/>
+   </properties>
+  </object>
+  <object id="24" x="315" y="891.667" width="92" height="56">
+   <properties>
+    <property name="name" value="top_post_score_board"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
