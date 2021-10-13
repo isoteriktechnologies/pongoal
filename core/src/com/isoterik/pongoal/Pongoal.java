@@ -11,9 +11,9 @@ public class Pongoal extends GameDriver {
 	protected Scene initGame() {
 		loadAssets();
 
-		racken.defaultSettings.VIEWPORT_WIDTH = 720f;
-		racken.defaultSettings.VIEWPORT_HEIGHT = 960f;
-		racken.defaultSettings.PIXELS_PER_UNIT = 48f;
+		racken.defaultSettings.VIEWPORT_WIDTH = 860f;
+		racken.defaultSettings.VIEWPORT_HEIGHT = 1280f;
+		racken.defaultSettings.PIXELS_PER_UNIT = 64f;
 
 		splashTransition = SceneTransitions.fade(1f);
 		return new GameScene();

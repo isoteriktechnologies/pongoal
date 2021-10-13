@@ -1,12 +1,16 @@
 package com.isoterik.pongoal.scenes;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.utils.Array;
-import com.isoterik.pongoal.components.PostLightManager;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.isoterik.pongoal.components.PostLight;
 import com.isoterik.racken.GameObject;
 import com.isoterik.racken.Scene;
 import com.isoterik.racken._2d.components.renderer.TiledMapRenderer;
@@ -15,8 +19,9 @@ public class GameScene extends Scene {
     private final GameObject gameManager;
 
     private GameObject topPost, bottomPost;
+    private GameObject topPud, bottomPud;
     private GameObject topPostLightLeft, topPostLightRight, bottomPostLightLeft, bottomPostLightRight;
-    private PostLightManager topPostLightManager, bottomPostLightManager;
+    private PostLight topPostLight, bottomPostLight;
 
     private final TiledMap map;
     private final TiledMapRenderer mapRenderer;
@@ -28,7 +33,7 @@ public class GameScene extends Scene {
         addGameObject(gameManager);
 
         map = racken.assets.getAsset("map/map.tmx", TiledMap.class);
-        mapRenderer = new TiledMapRenderer(map, 1/48f);
+        mapRenderer = new TiledMapRenderer(map, 1/64f);
         gameManager.addComponent(mapRenderer);
 
         init();
@@ -43,6 +48,8 @@ public class GameScene extends Scene {
             float x = gameWorldUnits.toWorldUnit((float)properties.get("x"));
             float y = gameWorldUnits.toWorldUnit((float)properties.get("y"));
 
+            tileObject.getTextureRegion().getTexture().setFilter(Texture.TextureFilter.Linear,
+                    Texture.TextureFilter.Linear);
             GameObject gameObject = newSpriteObject(tileObject.getTextureRegion());
             gameObject.transform.setSize(width, height);
             gameObject.transform.setPosition(x, y);
@@ -54,6 +61,10 @@ public class GameScene extends Scene {
                 else
                     bottomPost = gameObject;
             }
+            else if (properties.get("name").equals("pud_down"))
+                bottomPud = gameObject;
+            else if (properties.get("name").equals("pud_top"))
+                topPud = gameObject;
         }
 
         Array<EllipseMapObject> ellipseObjects = mapRenderer.getEllipseObjects();
@@ -79,12 +90,28 @@ public class GameScene extends Scene {
                 bottomPostLightRight = light;
         }
 
-        topPostLightManager = new PostLightManager(topPostLightLeft, topPostLightRight,
-                PostLightManager.PostPosition.Top, gameWorldUnits);
-        bottomPostLightManager = new PostLightManager(bottomPostLightLeft, bottomPostLightRight,
-                PostLightManager.PostPosition.Bottom, gameWorldUnits);
-        gameManager.addComponent(topPostLightManager);
-        gameManager.addComponent(bottomPostLightManager);
+        Array<RectangleMapObject> rectangleObjects = mapRenderer.getRectangleObjects();
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            MapProperties properties = rectangleObject.getProperties();
+            float width = gameWorldUnits.toWorldUnit((float)properties.get("width"));
+            float height = gameWorldUnits.toWorldUnit((float)properties.get("height"));
+            float x = gameWorldUnits.toWorldUnit((float)properties.get("x"));
+            float y = gameWorldUnits.toWorldUnit((float)properties.get("y"));
+
+            GameObject rect = GameObject.newInstance();
+            rect.transform.setSize(width, height);
+            rect.transform.setPosition(x, y);
+            addGameObject(rect);
+
+
+        }
+
+        topPostLight = new PostLight(topPostLightLeft, topPostLightRight,
+                PostLight.PostPosition.Top, gameWorldUnits);
+        bottomPostLight = new PostLight(bottomPostLightLeft, bottomPostLightRight,
+                PostLight.PostPosition.Bottom, gameWorldUnits);
+        gameManager.addComponent(topPostLight);
+        gameManager.addComponent(bottomPostLight);
     }
 }
 

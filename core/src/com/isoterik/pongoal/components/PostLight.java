@@ -10,7 +10,7 @@ import com.isoterik.racken._2d.components.renderer.SpriteRenderer;
 import com.isoterik.racken.animation.FrameAnimation;
 import com.isoterik.racken.utils.GameWorldUnits;
 
-public class PostLightManager extends Component {
+public class PostLight extends Component {
     private GameObject leftLight, rightLight;
     private PostPosition postPosition;
 
@@ -21,7 +21,7 @@ public class PostLightManager extends Component {
         Top, Bottom
     }
 
-    public PostLightManager(GameObject leftLight, GameObject rightLight, PostPosition postPosition, GameWorldUnits gameWorldUnits) {
+    public PostLight(GameObject leftLight, GameObject rightLight, PostPosition postPosition, GameWorldUnits gameWorldUnits) {
         this.leftLight = leftLight;
         this.rightLight = rightLight;
         this.postPosition = postPosition;
