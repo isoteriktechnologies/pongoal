@@ -52,6 +52,20 @@ public class PostLightManager extends Component {
         leftLight.addComponent(leftAnimation);
         rightLight.addComponent(new SpriteRenderer(rightLights.first(), gameWorldUnits));
         rightLight.addComponent(rightAnimation);
+
+        stopAnimation();
+    }
+
+    public void startAnimation() {
+        leftAnimation.setStateTime(0);
+        rightAnimation.setStateTime(0);
+        leftAnimation.setEnabled(true);
+        rightAnimation.setEnabled(true);
+    }
+
+    public void stopAnimation() {
+        leftAnimation.setEnabled(false);
+        rightAnimation.setEnabled(false);
     }
 }
 

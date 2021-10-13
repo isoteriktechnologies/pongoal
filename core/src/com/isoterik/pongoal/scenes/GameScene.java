@@ -1,5 +1,6 @@
 package com.isoterik.pongoal.scenes;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -21,6 +22,8 @@ public class GameScene extends Scene {
     private final TiledMapRenderer mapRenderer;
 
     public GameScene() {
+        setBackgroundColor(Color.BLACK);
+
         gameManager = GameObject.newInstance("GameManager");
         addGameObject(gameManager);
 
