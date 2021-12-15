@@ -49,6 +49,9 @@ public class GameScene extends Scene {
     private void init() {
         mainCamera.setup(new FitViewport(gameWorldUnits.getWorldWidth(), gameWorldUnits.getWorldHeight()));
 
+        physicsManager = PhysicsManager2d.setup(this);
+        physicsManager.setRenderPhysicsDebugLines(true);
+
         Array<TiledMapTileMapObject> tileObjects = mapRenderer.getTileObjects();
         for (TiledMapTileMapObject tileObject : tileObjects) {
             MapProperties properties = tileObject.getProperties();
@@ -70,11 +73,11 @@ public class GameScene extends Scene {
                 else
                     bottomPost = gameObject;
             }
-            else if (properties.get("name").equals("pud_down")) {
-                bottomPud = new Pud(Pud.PudPosition.Bottom, gameObject);
+            else if (properties.get("name").equals("pud_bottom")) {
+                bottomPud = new Pud(Pud.PudPosition.Bottom, gameObject, physicsManager);
             }
             else if (properties.get("name").equals("pud_top")) {
-                topPud = new Pud(Pud.PudPosition.Top, gameObject);
+                topPud = new Pud(Pud.PudPosition.Top, gameObject, physicsManager);
             }
             else if (properties.get("name").equals("ball")) {
                 ball = new Ball(gameObject);
@@ -124,9 +127,6 @@ public class GameScene extends Scene {
                 PostLight.PostPosition.Bottom, gameWorldUnits);
         gameManager.addComponent(topPostLight);
         gameManager.addComponent(bottomPostLight);
-
-        physicsManager = PhysicsManager2d.setup(this);
-        physicsManager.setRenderPhysicsDebugLines(true);
     }
 }
 
