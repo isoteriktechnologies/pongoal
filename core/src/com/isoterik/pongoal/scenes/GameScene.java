@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.isoterik.pongoal.components.Ball;
@@ -16,6 +17,9 @@ import com.isoterik.racken.GameObject;
 import com.isoterik.racken.Scene;
 import com.isoterik.racken._2d.components.renderer.TiledMapRenderer;
 import com.isoterik.racken.physics2d.PhysicsManager2d;
+import com.isoterik.racken.physics2d.PhysicsMaterial2d;
+import com.isoterik.racken.physics2d.RigidBody2d;
+import com.isoterik.racken.physics2d.colliders.BoxCollider;
 
 public class GameScene extends Scene {
     private final GameObject gameManager;
@@ -109,6 +113,7 @@ public class GameScene extends Scene {
         }
 
         Array<RectangleMapObject> rectangleObjects = mapRenderer.getRectangleObjects();
+        PhysicsMaterial2d wallMaterial = new PhysicsMaterial2d();
         for (RectangleMapObject rectangleObject : rectangleObjects) {
             MapProperties properties = rectangleObject.getProperties();
             float width = gameWorldUnits.toWorldUnit((float)properties.get("width"));
@@ -120,6 +125,9 @@ public class GameScene extends Scene {
             rect.transform.setSize(width, height);
             rect.transform.setPosition(x, y);
             addGameObject(rect);
+
+            rect.addComponent(new RigidBody2d(BodyDef.BodyType.StaticBody, wallMaterial, physicsManager));
+            rect.addComponent(new BoxCollider());
         }
 
         topPostLight = new PostLight(topPostLightLeft, topPostLightRight,

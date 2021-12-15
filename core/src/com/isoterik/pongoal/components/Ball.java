@@ -32,6 +32,7 @@ public class Ball extends Component {
         ballObject.addComponent(this);
 
         PhysicsMaterial2d physicsMaterial = new PhysicsMaterial2d();
+        physicsMaterial.bounciness = .9f;
         rigidBody = new RigidBody2d(BodyDef.BodyType.DynamicBody, physicsMaterial, physicsManager);
         ballObject.addComponent(rigidBody);
         ballObject.addComponent(new CircleCollider());
