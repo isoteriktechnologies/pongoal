@@ -4,73 +4,73 @@ size: 2048, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-pud_blue
+pud_blue_1
   rotate: false
   xy: 2, 2
   size: 180, 87
   orig: 200, 100
   offset: 11, 5
-  index: 1
-pud_blue
-  rotate: false
-  xy: 184, 2
-  size: 180, 87
-  orig: 200, 100
-  offset: 11, 5
-  index: 3
-pud_blue
+  index: -1
+pud_blue_2
   rotate: false
   xy: 548, 2
   size: 180, 87
   orig: 200, 100
   offset: 11, 5
-  index: 2
-pud_blue
+  index: -1
+pud_blue_3
+  rotate: false
+  xy: 184, 2
+  size: 180, 87
+  orig: 200, 100
+  offset: 11, 5
+  index: -1
+pud_blue_4
   rotate: false
   xy: 912, 2
   size: 180, 87
   orig: 200, 100
   offset: 11, 5
-  index: 4
-pud_blue
+  index: -1
+pud_blue_5
   rotate: false
   xy: 1276, 3
   size: 180, 86
   orig: 200, 100
   offset: 11, 6
-  index: 5
-pud_red
+  index: -1
+pud_red_1
   rotate: false
   xy: 730, 2
   size: 180, 87
   orig: 200, 100
   offset: 11, 7
-  index: 1
-pud_red
+  index: -1
+pud_red_2.png
+  rotate: false
+  xy: 366, 2
+  size: 180, 87
+  orig: 200, 100
+  offset: 11, 7
+  index: -1
+pud_red_3
   rotate: false
   xy: 1094, 3
   size: 180, 86
   orig: 200, 100
   offset: 11, 7
-  index: 3
-pud_red
+  index: -1
+pud_red_4
   rotate: false
   xy: 1458, 3
   size: 180, 86
   orig: 200, 100
   offset: 11, 7
-  index: 4
-pud_red
+  index: -1
+pud_red_5
   rotate: false
   xy: 1640, 4
   size: 180, 85
-  orig: 200, 100
-  offset: 11, 7
-  index: 5
-pud_red_2.png
-  rotate: false
-  xy: 366, 2
-  size: 180, 87
   orig: 200, 100
   offset: 11, 7
   index: -1

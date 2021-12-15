@@ -102,8 +102,6 @@ public class GameScene extends Scene {
             rect.transform.setSize(width, height);
             rect.transform.setPosition(x, y);
             addGameObject(rect);
-
-
         }
 
         topPostLight = new PostLight(topPostLightLeft, topPostLightRight,
