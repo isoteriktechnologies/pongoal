@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.isoterik.pongoal.components.PostLight;
+import com.isoterik.pongoal.components.Pud;
 import com.isoterik.racken.GameObject;
 import com.isoterik.racken.Scene;
 import com.isoterik.racken._2d.components.renderer.TiledMapRenderer;
@@ -19,7 +20,7 @@ public class GameScene extends Scene {
     private final GameObject gameManager;
 
     private GameObject topPost, bottomPost;
-    private GameObject topPud, bottomPud;
+    private Pud topPud, bottomPud;
     private GameObject topPostLightLeft, topPostLightRight, bottomPostLightLeft, bottomPostLightRight;
     private PostLight topPostLight, bottomPostLight;
 
@@ -61,10 +62,12 @@ public class GameScene extends Scene {
                 else
                     bottomPost = gameObject;
             }
-            else if (properties.get("name").equals("pud_down"))
-                bottomPud = gameObject;
-            else if (properties.get("name").equals("pud_top"))
-                topPud = gameObject;
+            else if (properties.get("name").equals("pud_down")) {
+                bottomPud = new Pud(Pud.PudPosition.Bottom, gameObject);
+            }
+            else if (properties.get("name").equals("pud_top")) {
+                topPud = new Pud(Pud.PudPosition.Top, gameObject);
+            }
         }
 
         Array<EllipseMapObject> ellipseObjects = mapRenderer.getEllipseObjects();

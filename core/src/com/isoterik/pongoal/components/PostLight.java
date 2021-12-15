@@ -21,7 +21,8 @@ public class PostLight extends Component {
         Top, Bottom
     }
 
-    public PostLight(GameObject leftLight, GameObject rightLight, PostPosition postPosition, GameWorldUnits gameWorldUnits) {
+    public PostLight(GameObject leftLight, GameObject rightLight, PostPosition postPosition,
+                     GameWorldUnits gameWorldUnits) {
         this.leftLight = leftLight;
         this.rightLight = rightLight;
         this.postPosition = postPosition;

@@ -22,6 +22,7 @@ public class Pongoal extends GameDriver {
 	private void loadAssets() {
 		racken.assets.enqueueAsset("map/map.tmx", TiledMap.class);
 		racken.assets.enqueueTexture("goal_posts_lights.png");
+		racken.assets.enqueueAtlas("puds.atlas");
 		racken.assets.loadAssetsNow();
 	}
 }
