@@ -51,6 +51,7 @@ public class GameScene extends Scene {
 
         physicsManager = PhysicsManager2d.setup(this);
         physicsManager.setRenderPhysicsDebugLines(true);
+        physicsManager.setSimulatePhysics(false);
 
         Array<TiledMapTileMapObject> tileObjects = mapRenderer.getTileObjects();
         for (TiledMapTileMapObject tileObject : tileObjects) {
@@ -80,7 +81,7 @@ public class GameScene extends Scene {
                 topPud = new Pud(Pud.PudPosition.Top, gameObject, physicsManager);
             }
             else if (properties.get("name").equals("ball")) {
-                ball = new Ball(gameObject);
+                ball = new Ball(gameObject, physicsManager);
             }
         }
 
