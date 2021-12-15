@@ -8,29 +8,29 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.isoterik.pongoal.components.Ball;
 import com.isoterik.pongoal.components.PostLight;
 import com.isoterik.pongoal.components.Pud;
 import com.isoterik.racken.GameObject;
 import com.isoterik.racken.Scene;
 import com.isoterik.racken._2d.components.renderer.TiledMapRenderer;
+import com.isoterik.racken.physics2d.PhysicsManager2d;
 
 public class GameScene extends Scene {
     private final GameObject gameManager;
+    private GameObject topPost, bottomPost;
+    private GameObject topPostLightLeft, topPostLightRight, bottomPostLightLeft, bottomPostLightRight;
 
     private Pud topPud, bottomPud;
 
     private Ball ball;
 
-    private GameObject topPost, bottomPost;
-    private GameObject topPostLightLeft, topPostLightRight, bottomPostLightLeft, bottomPostLightRight;
-
     private PostLight topPostLight, bottomPostLight;
 
     private final TiledMap map;
     private final TiledMapRenderer mapRenderer;
+
+    private PhysicsManager2d physicsManager;
 
     public GameScene() {
         setBackgroundColor(Color.BLACK);
@@ -121,6 +121,9 @@ public class GameScene extends Scene {
                 PostLight.PostPosition.Bottom, gameWorldUnits);
         gameManager.addComponent(topPostLight);
         gameManager.addComponent(bottomPostLight);
+
+        physicsManager = PhysicsManager2d.setup(this);
+        physicsManager.setRenderPhysicsDebugLines(true);
     }
 }
 
