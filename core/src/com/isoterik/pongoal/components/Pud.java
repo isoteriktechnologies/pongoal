@@ -17,7 +17,7 @@ public class Pud extends Component {
     private final PudPosition pudPosition;
     private final FrameAnimation animation;
 
-    private final Array<TextureRegion> textures;
+    private final Array<TextureRegion> textureRegions;
 
     public Pud(PudPosition pudPosition, GameObject pudObject) {
         this.pudPosition = pudPosition;
@@ -25,13 +25,13 @@ public class Pud extends Component {
         TextureAtlas pudAtlas = Racken.instance().assets.getAtlas("puds.atlas");
 
         String prefix = pudPosition == PudPosition.Top ? "pud_blue_" : "pud_red_";
-        textures = new Array<>();
+        textureRegions = new Array<>();
 
         for (int i = 1; i < 6; i++) {
-            textures.add(pudAtlas.findRegion(prefix + i));
+            textureRegions.add(pudAtlas.findRegion(prefix + i));
         }
 
-        animation = new FrameAnimation(textures, .05f);
+        animation = new FrameAnimation(textureRegions, .05f);
         pudObject.addComponent(animation);
         pudObject.addComponent(this);
         animation.setPlayMode(Animation.PlayMode.REVERSED);
