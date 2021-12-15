@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.isoterik.pongoal.components.Ball;
 import com.isoterik.pongoal.components.PostLight;
 import com.isoterik.pongoal.components.Pud;
@@ -46,6 +47,8 @@ public class GameScene extends Scene {
     }
 
     private void init() {
+        mainCamera.setup(new FitViewport(gameWorldUnits.getWorldWidth(), gameWorldUnits.getWorldHeight()));
+
         Array<TiledMapTileMapObject> tileObjects = mapRenderer.getTileObjects();
         for (TiledMapTileMapObject tileObject : tileObjects) {
             MapProperties properties = tileObject.getProperties();
