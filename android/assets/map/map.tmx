@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="43" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="13">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="43" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="19">
  <tileset firstgid="1" name="goal_post_top" tilewidth="615" tileheight="135" tilecount="1" columns="1">
   <image source="goal_post_top.png" width="615" height="135"/>
  </tileset>
@@ -79,5 +79,21 @@
   </object>
   <object id="11" x="135.633" y="129.275" width="10.9246" height="1017.81"/>
   <object id="12" x="716.633" y="129.275" width="10.9246" height="1017.81"/>
+  <object id="13" x="147.407" y="147.124" width="88.8307" height="7.28307"/>
+  <object id="16" x="147.407" y="1120.12" width="92.8307" height="7.28307"/>
+  <object id="14" x="626.407" y="147.124" width="89.8307" height="7.28307"/>
+  <object id="15" x="622.907" y="1124.12" width="93.3307" height="7.28307"/>
+  <object id="17" x="238" y="125.667" width="386.667" height="6.66667">
+   <properties>
+    <property name="name" value="goal_line"/>
+    <property name="position" value="top"/>
+   </properties>
+  </object>
+  <object id="18" x="238" y="1153.67" width="386.667" height="6.66667">
+   <properties>
+    <property name="name" value="goal_line"/>
+    <property name="position" value="top"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

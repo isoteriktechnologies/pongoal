@@ -25,6 +25,7 @@ public class GameScene extends Scene {
     private final GameObject gameManager;
     private GameObject topPost, bottomPost;
     private GameObject topPostLightLeft, topPostLightRight, bottomPostLightLeft, bottomPostLightRight;
+    private GameObject topGoalLine, bottomGoalLine;
 
     private Pud topPud, bottomPud;
 
@@ -126,8 +127,19 @@ public class GameScene extends Scene {
             rect.transform.setPosition(x, y);
             addGameObject(rect);
 
+            BoxCollider collider = new BoxCollider();
             rect.addComponent(new RigidBody2d(BodyDef.BodyType.StaticBody, wallMaterial, physicsManager));
-            rect.addComponent(new BoxCollider());
+            rect.addComponent(collider);
+
+            String name = properties.get("name", String.class);
+            if (name != null && name.equals("goal_line")) {
+                collider.setIsSensor(true);
+
+                if (properties.get("position").equals("top"))
+                    topGoalLine = rect;
+                else
+                    bottomGoalLine = rect;
+            }
         }
 
         topPostLight = new PostLight(topPostLightLeft, topPostLightRight,
