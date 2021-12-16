@@ -56,7 +56,7 @@ public class GameScene extends Scene {
 
         physicsManager = PhysicsManager2d.setup(this);
         physicsManager.setRenderPhysicsDebugLines(true);
-        physicsManager.setSimulatePhysics(false);
+        //physicsManager.setSimulatePhysics(false);
 
         Array<TiledMapTileMapObject> tileObjects = mapRenderer.getTileObjects();
         for (TiledMapTileMapObject tileObject : tileObjects) {
