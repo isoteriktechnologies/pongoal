@@ -2,6 +2,7 @@ package com.isoterik.pongoal.components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
 import com.isoterik.racken.Component;
@@ -28,14 +29,14 @@ public class Ball extends Component {
 
         animation = new FrameAnimation(textureRegions, .05f);
 
-        ballObject.addComponent(animation);
-        ballObject.addComponent(this);
-
         PhysicsMaterial2d physicsMaterial = new PhysicsMaterial2d();
         physicsMaterial.bounciness = .9f;
         rigidBody = new RigidBody2d(BodyDef.BodyType.DynamicBody, physicsMaterial, physicsManager);
         ballObject.addComponent(rigidBody);
         ballObject.addComponent(new CircleCollider());
+
+        ballObject.addComponent(animation);
+        ballObject.addComponent(this);
 
         stopAnimation();
     }
@@ -47,5 +48,11 @@ public class Ball extends Component {
 
     public void stopAnimation() {
         animation.setEnabled(false);
+    }
+
+    @Override
+    public void start() {
+        Body body = rigidBody.getBody();
+        body.setBullet(true);
     }
 }

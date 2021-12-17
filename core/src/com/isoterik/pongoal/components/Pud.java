@@ -71,15 +71,13 @@ public class Pud extends Component {
         animation.setEnabled(false);
     }
 
-    private void pushLeft(float force) {
-        Body body = rigidBody.getBody();
-        velocity -= force;
+    private void pushLeft(float speed, Body body) {
+        velocity -= speed;
         body.setLinearVelocity(velocity, 0);
     }
 
-    private void pushRight(float force) {
-        Body body = rigidBody.getBody();
-        velocity += force;
+    private void pushRight(float speed, Body body) {
+        velocity += speed;
         body.setLinearVelocity(velocity, 0);
     }
 
@@ -99,8 +97,10 @@ public class Pud extends Component {
             input.addMapping(mappingMoveRight, KeyTrigger.keyDownTrigger(Input.Keys.RIGHT).setPolled(true),
                     KeyTrigger.keyDownTrigger(Input.Keys.D).setPolled(true));
 
-            input.mapListener(mappingMoveLeft, (IKeyListener) (mappingName, keyEventData) -> pushLeft(movementForce));
-            input.mapListener(mappingMoveRight, (IKeyListener) (mappingName, keyEventData) -> pushRight(movementForce));
+            input.mapListener(mappingMoveLeft, (IKeyListener) (mappingName, keyEventData) ->
+                    pushLeft(movementForce, body));
+            input.mapListener(mappingMoveRight, (IKeyListener) (mappingName, keyEventData) ->
+                    pushRight(movementForce, body));
         }
     }
 }
