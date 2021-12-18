@@ -26,6 +26,7 @@ public class GameScene extends Scene {
     private GameObject topPost, bottomPost;
     private GameObject topPostLightLeft, topPostLightRight, bottomPostLightLeft, bottomPostLightRight;
     private GameObject topGoalLine, bottomGoalLine;
+    private GameObject leftWall, rightWall;
 
     private Pud topPud, bottomPud;
 
@@ -55,8 +56,45 @@ public class GameScene extends Scene {
         mainCamera.setup(new FitViewport(gameWorldUnits.getWorldWidth(), gameWorldUnits.getWorldHeight()));
 
         physicsManager = PhysicsManager2d.setup(this);
-        physicsManager.setRenderPhysicsDebugLines(true);
+        //physicsManager.setRenderPhysicsDebugLines(true);
         //physicsManager.setSimulatePhysics(false);
+
+        Array<RectangleMapObject> rectangleObjects = mapRenderer.getRectangleObjects();
+        PhysicsMaterial2d wallMaterial = new PhysicsMaterial2d();
+        for (RectangleMapObject rectangleObject : rectangleObjects) {
+            MapProperties properties = rectangleObject.getProperties();
+            float width = gameWorldUnits.toWorldUnit((float)properties.get("width"));
+            float height = gameWorldUnits.toWorldUnit((float)properties.get("height"));
+            float x = gameWorldUnits.toWorldUnit((float)properties.get("x"));
+            float y = gameWorldUnits.toWorldUnit((float)properties.get("y"));
+
+            GameObject rect = GameObject.newInstance();
+            rect.transform.setSize(width, height);
+            rect.transform.setPosition(x, y);
+            addGameObject(rect);
+
+            BoxCollider collider = new BoxCollider();
+
+            String name = properties.get("name", String.class);
+            if (name != null && name.equals("goal_line")) {
+                collider.setIsSensor(true);
+
+                if (properties.get("position").equals("top"))
+                    topGoalLine = rect;
+                else
+                    bottomGoalLine = rect;
+            }
+
+            if (name != null && name.equals("wall")) {
+                if (properties.get("position").equals("left"))
+                    leftWall = rect;
+                else
+                    rightWall = rect;
+            }
+
+            rect.addComponent(new RigidBody2d(BodyDef.BodyType.StaticBody, wallMaterial, physicsManager));
+            rect.addComponent(collider);
+        }
 
         Array<TiledMapTileMapObject> tileObjects = mapRenderer.getTileObjects();
         for (TiledMapTileMapObject tileObject : tileObjects) {
@@ -73,6 +111,9 @@ public class GameScene extends Scene {
             gameObject.transform.setPosition(x, y);
             addGameObject(gameObject);
 
+            float leftBound = leftWall.transform.getX() + leftWall.transform.getWidth();
+            float rightBound = rightWall.transform.getX();
+
             if (properties.get("name").equals("post")) {
                 if (properties.get("position").equals("top"))
                     topPost = gameObject;
@@ -80,10 +121,10 @@ public class GameScene extends Scene {
                     bottomPost = gameObject;
             }
             else if (properties.get("name").equals("pud_bottom")) {
-                bottomPud = new Pud(Pud.PudPosition.Bottom, gameObject, physicsManager);
+                bottomPud = new Pud(Pud.PudPosition.Bottom, gameObject, physicsManager, leftBound, rightBound);
             }
             else if (properties.get("name").equals("pud_top")) {
-                topPud = new Pud(Pud.PudPosition.Top, gameObject, physicsManager);
+                topPud = new Pud(Pud.PudPosition.Top, gameObject, physicsManager, leftBound, rightBound);
             }
             else if (properties.get("name").equals("ball")) {
                 ball = new Ball(gameObject, physicsManager);
@@ -111,35 +152,6 @@ public class GameScene extends Scene {
                 bottomPostLightLeft = light;
             else if (properties.get("name").equals("bottom_post_light_right"))
                 bottomPostLightRight = light;
-        }
-
-        Array<RectangleMapObject> rectangleObjects = mapRenderer.getRectangleObjects();
-        PhysicsMaterial2d wallMaterial = new PhysicsMaterial2d();
-        for (RectangleMapObject rectangleObject : rectangleObjects) {
-            MapProperties properties = rectangleObject.getProperties();
-            float width = gameWorldUnits.toWorldUnit((float)properties.get("width"));
-            float height = gameWorldUnits.toWorldUnit((float)properties.get("height"));
-            float x = gameWorldUnits.toWorldUnit((float)properties.get("x"));
-            float y = gameWorldUnits.toWorldUnit((float)properties.get("y"));
-
-            GameObject rect = GameObject.newInstance();
-            rect.transform.setSize(width, height);
-            rect.transform.setPosition(x, y);
-            addGameObject(rect);
-
-            BoxCollider collider = new BoxCollider();
-            rect.addComponent(new RigidBody2d(BodyDef.BodyType.StaticBody, wallMaterial, physicsManager));
-            rect.addComponent(collider);
-
-            String name = properties.get("name", String.class);
-            if (name != null && name.equals("goal_line")) {
-                collider.setIsSensor(true);
-
-                if (properties.get("position").equals("top"))
-                    topGoalLine = rect;
-                else
-                    bottomGoalLine = rect;
-            }
         }
 
         topPostLight = new PostLight(topPostLightLeft, topPostLightRight,

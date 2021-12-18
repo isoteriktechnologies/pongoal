@@ -30,7 +30,10 @@ public class Ball extends Component {
         animation = new FrameAnimation(textureRegions, .05f);
 
         PhysicsMaterial2d physicsMaterial = new PhysicsMaterial2d();
-        physicsMaterial.bounciness = .9f;
+        physicsMaterial.bounciness = 1f;
+        physicsMaterial.friction = 0f;
+        physicsMaterial.density = 1f;
+
         rigidBody = new RigidBody2d(BodyDef.BodyType.DynamicBody, physicsMaterial, physicsManager);
         ballObject.addComponent(rigidBody);
         ballObject.addComponent(new CircleCollider());

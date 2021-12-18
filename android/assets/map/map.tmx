@@ -77,8 +77,18 @@
     <property name="name" value="pud_bottom"/>
    </properties>
   </object>
-  <object id="11" x="135.633" y="129.275" width="10.9246" height="1017.81"/>
-  <object id="12" x="716.633" y="129.275" width="10.9246" height="1017.81"/>
+  <object id="11" x="135.633" y="129.275" width="10.9246" height="1017.81">
+   <properties>
+    <property name="name" value="wall"/>
+    <property name="position" value="left"/>
+   </properties>
+  </object>
+  <object id="12" x="716.633" y="129.275" width="10.9246" height="1017.81">
+   <properties>
+    <property name="name" value="wall"/>
+    <property name="position" value="right"/>
+   </properties>
+  </object>
   <object id="13" x="147.407" y="147.124" width="88.8307" height="7.28307"/>
   <object id="16" x="147.407" y="1120.12" width="92.8307" height="7.28307"/>
   <object id="14" x="626.407" y="147.124" width="89.8307" height="7.28307"/>

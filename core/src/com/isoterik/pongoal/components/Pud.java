@@ -8,19 +8,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
-import com.isoterik.racken.Component;
 import com.isoterik.racken.GameObject;
 import com.isoterik.racken.Racken;
 import com.isoterik.racken.animation.FrameAnimation;
-import com.isoterik.racken.input.IKeyListener;
-import com.isoterik.racken.input.KeyEventData;
-import com.isoterik.racken.input.KeyTrigger;
+import com.isoterik.racken.physics2d.Physics2d;
 import com.isoterik.racken.physics2d.PhysicsManager2d;
 import com.isoterik.racken.physics2d.PhysicsMaterial2d;
 import com.isoterik.racken.physics2d.RigidBody2d;
 import com.isoterik.racken.physics2d.colliders.BoxCollider;
 
-public class Pud extends Component {
+public class Pud extends Physics2d {
     public enum PudPosition {
         Top, Bottom
     }
@@ -34,10 +31,14 @@ public class Pud extends Component {
     private final PhysicsManager2d physicsManager;
 
     private float velocity;
+    private final float leftBound, rightBound;
 
-    public Pud(PudPosition pudPosition, GameObject pudObject, PhysicsManager2d physicsManager) {
+    public Pud(PudPosition pudPosition, GameObject pudObject, PhysicsManager2d physicsManager, float leftBound,
+               float rightBound) {
         this.pudPosition = pudPosition;
         this.physicsManager = physicsManager;
+        this.leftBound = leftBound;
+        this.rightBound = rightBound;
 
         TextureAtlas pudAtlas = Racken.instance().assets.getAtlas("puds.atlas");
 
@@ -81,26 +82,40 @@ public class Pud extends Component {
         body.setLinearVelocity(velocity, 0);
     }
 
-    @Override
-    public void start() {
-        Body body = rigidBody.getBody();
+    private void stopMovement(Body body) {
+        velocity = 0;
         body.setLinearVelocity(velocity, 0);
+    }
 
+    private void keepWithinBounds(Body body) {
+        float width = gameObject.transform.getWidth();
+        Vector2 position = body.getPosition();
+        position.sub(width * .5f, 0);
+
+        if (position.x < leftBound)
+            position.x = leftBound;
+        if ((position.x + width) > rightBound)
+            position.x = rightBound - width;
+
+        position.add(width * .5f, 0);
+        body.setTransform(position, body.getAngle());
+    }
+
+    @Override
+    public void fixedUpdate2d(float timeStep) {
         if (pudPosition == PudPosition.Bottom) {
-            float movementForce = .1f;
+            float movementForce = .2f;
 
-            String mappingMoveLeft = "MOVE_PUD_LEFT_";
-            String mappingMoveRight = "MOVE_PUD_RIGHT_";
+            Body body = rigidBody.getBody();
 
-            input.addMapping(mappingMoveLeft, KeyTrigger.keyDownTrigger(Input.Keys.LEFT).setPolled(true),
-                    KeyTrigger.keyDownTrigger(Input.Keys.A).setPolled(true));
-            input.addMapping(mappingMoveRight, KeyTrigger.keyDownTrigger(Input.Keys.RIGHT).setPolled(true),
-                    KeyTrigger.keyDownTrigger(Input.Keys.D).setPolled(true));
+            if (input.isKeyDown(Input.Keys.LEFT) || input.isKeyDown(Input.Keys.A))
+                pushLeft(movementForce, body);
+            else if (input.isKeyDown(Input.Keys.RIGHT) || input.isKeyDown(Input.Keys.D))
+                pushRight(movementForce, body);
+            else
+                stopMovement(body);
 
-            input.mapListener(mappingMoveLeft, (IKeyListener) (mappingName, keyEventData) ->
-                    pushLeft(movementForce, body));
-            input.mapListener(mappingMoveRight, (IKeyListener) (mappingName, keyEventData) ->
-                    pushRight(movementForce, body));
+            keepWithinBounds(body);
         }
     }
 }
