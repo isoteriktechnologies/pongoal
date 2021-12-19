@@ -60,6 +60,8 @@ public class Pud extends Physics2d {
 
         pudObject.addComponent(this);
 
+        pudObject.setTag("Pud");
+
         stopAnimation();
     }
 

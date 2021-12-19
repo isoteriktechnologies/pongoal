@@ -2,6 +2,8 @@ package com.isoterik.pongoal.components;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
@@ -9,12 +11,10 @@ import com.isoterik.racken.Component;
 import com.isoterik.racken.GameObject;
 import com.isoterik.racken.Racken;
 import com.isoterik.racken.animation.FrameAnimation;
-import com.isoterik.racken.physics2d.PhysicsManager2d;
-import com.isoterik.racken.physics2d.PhysicsMaterial2d;
-import com.isoterik.racken.physics2d.RigidBody2d;
+import com.isoterik.racken.physics2d.*;
 import com.isoterik.racken.physics2d.colliders.CircleCollider;
 
-public class Ball extends Component {
+public class Ball extends Physics2d {
     private final Array<TextureRegion> textureRegions;
     private final FrameAnimation animation;
 
@@ -41,6 +41,8 @@ public class Ball extends Component {
         ballObject.addComponent(animation);
         ballObject.addComponent(this);
 
+        ballObject.setTag("Ball");
+
         stopAnimation();
     }
 
@@ -53,9 +55,31 @@ public class Ball extends Component {
         animation.setEnabled(false);
     }
 
+    public void bounceRandomly() {
+        Body body = rigidBody.getBody();
+        float force = 3;
+
+        if (MathUtils.random(0, 2) > 1)
+            force *= -1;
+
+        body.applyLinearImpulse(new Vector2(0, force), body.getWorldCenter(), true);
+    }
+
     @Override
     public void start() {
         Body body = rigidBody.getBody();
         body.setBullet(true);
+    }
+
+    @Override
+    public void onCollisionEnter2d(Collision2d collision) {
+        if (collision.compareTag("Pud")) {
+            Body body = rigidBody.getBody();
+            Vector2 vel = body.getLinearVelocity();
+            Body pudBody = collision.other.getComponent(RigidBody2d.class).getBody();
+
+            vel.y = (vel.y * 2f) + (pudBody.getLinearVelocity().y / 3f);
+            body.setLinearVelocity(vel);
+        }
     }
 }

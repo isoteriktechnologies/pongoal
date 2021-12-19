@@ -7,8 +7,10 @@ import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.isoterik.pongoal.components.Ball;
 import com.isoterik.pongoal.components.PostLight;
@@ -50,14 +52,15 @@ public class GameScene extends Scene {
         gameManager.addComponent(mapRenderer);
 
         init();
+        startGame();
     }
 
     private void init() {
         mainCamera.setup(new FitViewport(gameWorldUnits.getWorldWidth(), gameWorldUnits.getWorldHeight()));
 
-        physicsManager = PhysicsManager2d.setup(this);
+        physicsManager = PhysicsManager2d.setup(this, new Vector2(0, -3));
         //physicsManager.setRenderPhysicsDebugLines(true);
-        //physicsManager.setSimulatePhysics(false);
+        physicsManager.setSimulatePhysics(false);
 
         Array<RectangleMapObject> rectangleObjects = mapRenderer.getRectangleObjects();
         PhysicsMaterial2d wallMaterial = new PhysicsMaterial2d();
@@ -160,6 +163,16 @@ public class GameScene extends Scene {
                 PostLight.PostPosition.Bottom, gameWorldUnits);
         gameManager.addComponent(topPostLight);
         gameManager.addComponent(bottomPostLight);
+    }
+
+    private void startGame() {
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                ball.bounceRandomly();
+                physicsManager.setSimulatePhysics(true);
+            }
+        }, 3);
     }
 }
 
